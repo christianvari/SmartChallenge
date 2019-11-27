@@ -21,9 +21,9 @@ contract Token is ERC20 {
         _transfer(address(this), buyer, amount);
     }
 
-    function SellToken(address seller, uint256 amount) public {
-        require(balanceOf(seller) >= amount, "You haven't token");
-        _transfer(seller, address(this), amount);
+    function SellToken(uint256 amount) public {
+        require(balanceOf(msg.sender) >= amount, "You haven't token");
+        _transfer(msg.sender, address(this), amount);
     }
 
 }
