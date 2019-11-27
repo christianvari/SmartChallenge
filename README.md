@@ -17,3 +17,13 @@ Gli acquisti in-app effettuabili con il token sono:
 
 Il backend dell'applicazione è gestito da uno Smart Contract su rete Ethereum mentre il frontend è un'app REACT.
 
+* Homepage
+<img src='./readme_imgs/homepage.png'/>
+* Dashboard
+<img src='./readme_imgs/dashboard.png'/>
+* Create Conundrum
+<img src='./readme_imgs/create_conundrum.png'/>
+* Solve Conundrum
+<img src='./readme_imgs/solve_conundrum.png'/>
+* Error Page
+<img src='./readme_imgs/error_page.png'/>
