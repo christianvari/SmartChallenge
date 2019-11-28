@@ -1,11 +1,34 @@
 pragma solidity ^0.5.0;
+pragma experimental ABIEncoderV2;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract Token is ERC20 {
 
     uint private MAX_TOKEN = 1000000000; //1 000 000 000
+    uint32 private DAY_MS = 86400;
     address public owner;
+
+    struct Enigma{
+        bytes32 hash_enigma;
+        bytes32 hash_right_answer;
+        bytes32[3] hash_hints;
+        uint16 max_bids;
+        uint timestamp;
+        uint jackpot;
+        uint index;
+        bool ended;
+
+    }
+    struct Answer{
+        bytes32 hash_answer;
+        address enigma_creator;
+        uint enigma_index;
+        bool right;
+    }
+    
+    mapping(address => Enigma[]) private creators;
+    mapping(address => Answer[]) private players;
 
     constructor() public{
         owner = msg.sender;
@@ -19,6 +42,60 @@ contract Token is ERC20 {
 
     function SellToken(uint256 amount) public {
         require(balanceOf(msg.sender) >= amount, "You haven't token");
+        require(totalSupply() >= amount, "Not enough tokens");
         _transfer(msg.sender, address(this), amount);
     }
+
+    function createEnigma(bytes32 hash_e, bytes32 hash_r_a, /*bytes32[3] memory hash_h,*/ uint16 m_b, uint256 bid) public{
+        require(balanceOf(msg.sender) >= bid, "You haven't enough token to place your bid.");
+        _transfer(msg.sender, address(this), bid);
+        Enigma memory e;
+
+        e.hash_enigma = hash_e;
+        e.hash_right_answer = hash_r_a;
+        //e.hash_hints = hash_h;
+        e.max_bids = m_b;
+        e.timestamp = block.timestamp;
+        e.jackpot = bid;
+        e.ended = false;
+        creators[msg.sender].push(e);
+
+        e.index = (creators[msg.sender].length)-1;
+    }
+    function answerEnigma(bytes32 hash_a, address enigma_creator, uint index, uint256 bid) public{
+        require(balanceOf(msg.sender) >= bid, "You haven't enough token to place your bid.");
+        Answer memory a;
+
+        a.hash_answer = hash_a;
+        a.enigma_creator = enigma_creator;
+        a.enigma_index = index;
+
+        Enigma memory e = creators[enigma_creator][index];
+        if(hash_a == e.hash_right_answer){
+            e.ended = true;
+            _transfer(address(this), msg.sender, e.jackpot);
+        }
+        else{
+            e.jackpot += bid;
+            _transfer(msg.sender, address(this), bid);
+        }
+
+        players[msg.sender].push(a);
+    }
+
+    function getEnigmas() public view returns(Enigma[] memory){
+        return creators[msg.sender];
+    }
+    function getAnswers() public view returns(Answer[] memory){
+        return players[msg.sender];
+    }
+
+    function getReward(uint index) public{
+        Enigma memory e = creators[msg.sender][index];
+        if(e.ended == false){  // TODO: timestamp check and add wait time
+            e.ended = true;
+            _transfer(address(this), msg.sender, e.jackpot);
+        }
+    }
+
 }
