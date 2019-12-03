@@ -6,14 +6,14 @@ import "../node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract Token is ERC20 {
 
     uint private MAX_TOKEN = 1000000000; //1 000 000 000
-    uint32 private DAY_MS = 86400;
+    uint32 private TEN_DAY_MS = 8640000;
     address public owner;
 
     struct Enigma{
         bytes32 hash_enigma;
         bytes32 hash_right_answer;
         bytes32[3] hash_hints;
-        uint16 max_bids;
+        uint16 bids;
         uint timestamp;
         uint jackpot;
         uint index;
@@ -54,7 +54,7 @@ contract Token is ERC20 {
         e.hash_enigma = hash_e;
         e.hash_right_answer = hash_r_a;
         //e.hash_hints = hash_h;
-        e.max_bids = m_b;
+        e.bids = m_b;
         e.timestamp = block.timestamp;
         e.jackpot = bid;
         e.ended = false;
@@ -62,15 +62,17 @@ contract Token is ERC20 {
 
         e.index = (creators[msg.sender].length)-1;
     }
+
     function answerEnigma(bytes32 hash_a, address enigma_creator, uint index, uint256 bid) public{
         require(balanceOf(msg.sender) >= bid, "You haven't enough token to place your bid.");
+        Enigma memory e = creators[enigma_creator][index];
+        assert(! e.ended);
         Answer memory a;
 
         a.hash_answer = hash_a;
         a.enigma_creator = enigma_creator;
         a.enigma_index = index;
 
-        Enigma memory e = creators[enigma_creator][index];
         if(hash_a == e.hash_right_answer){
             e.ended = true;
             _transfer(address(this), msg.sender, e.jackpot);
@@ -79,7 +81,7 @@ contract Token is ERC20 {
             e.jackpot += bid;
             _transfer(msg.sender, address(this), bid);
         }
-
+        e.bids -= 1;
         players[msg.sender].push(a);
     }
 
@@ -90,10 +92,25 @@ contract Token is ERC20 {
         return players[msg.sender];
     }
 
-    function getReward(uint index) public{
+    function isEnded(address creator, uint index) public view returns(bool){
+
+        Enigma memory e = creators[creator][index];
+
+        if(! e.ended){
+            if((block.timestamp + e.timestamp >= TEN_DAY_MS) || (e.bids == 0)){
+                e.ended = true;
+            }
+        }
+
+        return e.ended;
+    }
+
+    function getReward(uint index, bytes32 hash_answer) public{
+        assert(index <= creators[msg.sender].length);
         Enigma memory e = creators[msg.sender][index];
-        if(e.ended == false){  // TODO: timestamp check and add wait time
-            e.ended = true;
+        require(e.ended, "The Enigma isn't ended yet");
+
+        if(e.hash_right_answer == hash_answer){
             _transfer(address(this), msg.sender, e.jackpot);
         }
     }

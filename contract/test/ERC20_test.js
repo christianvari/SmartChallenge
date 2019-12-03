@@ -1,7 +1,7 @@
 const Token = artifacts.require("Token");
 const IPFS = require('ipfs-http-client');
 const bs58 = require('bs58');
-const hash = require('sha256');
+const sha = require('sha256');
 const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 
 // I use sha256 encoded in hex and withount the fixed part 0x1220
@@ -19,9 +19,15 @@ const getFromIPFS = async (buffer) => {
     let string ='1220' + buffer.slice(2, buffer.length)
     let ipfs_hash = bs58.encode(new Buffer(string, 'hex'));
     return (await ipfs.cat(ipfs_hash)).toString();
-}
+};
 
-contract("Token simple Test", async accounts => {
+const sha256 = (string_data) => {
+    console.log(sha(string_data));
+    const bytes = bs58.decode(sha(string_data));
+    return bytes;
+};
+
+contract("Token Test", async accounts => {
 
 
 
@@ -71,12 +77,27 @@ contract("Token simple Test", async accounts => {
 
         let instance = await Token.deployed();
 
+        console.log(sha256('risposta'));
+
         await instance.BuyToken(accounts[1], 100,{from:accounts[0]});
         const tx = await instance.createEnigma(await loadOnIPFS('indovina indovinello'),
-                                    await loadOnIPFS(hash('risposta')),
+                                    sha256('risposta'),
                                     100, 20, {from:accounts[1]});
-        console.log(tx);
-        console.log(await instance.getEnigmas({from:accounts[1]}));
+        assert.ok((await instance.getEnigmas({from:accounts[1]}))[0]);
+    })
 
+    it("Answer a question", async () => {
+
+        let instance = await Token.deployed();
+
+        await instance.BuyToken(accounts[0], 100,{from:accounts[0]});
+        const tx = await instance.answerEnigma(sha256('risposta'),
+                                                    accounts[1],
+                                                    0,
+                                                    1,
+                                                    {from:accounts[0]});
+        
+        balance = await instance.balanceOf(accounts[0]);
+        assert.equal(balance.valueOf(), 120);
     })
 });
