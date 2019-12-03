@@ -10,9 +10,7 @@ const loadOnIPFS = async (string_data) => {
     let enigma_hash = await ipfs.add(string_data);
     assert.equal(string_data, await ipfs.cat(enigma_hash[0].hash), "not saving enigma");
     const bytes = bs58.decode(enigma_hash[0].hash);
-    const multiHashId = 2;
-    // remove the multihash hash id
-    return bytes.slice(multiHashId, bytes.length);
+    return bytes.slice(2, bytes.length);
 };
 
 const getFromIPFS = async (buffer) => {
@@ -22,8 +20,7 @@ const getFromIPFS = async (buffer) => {
 };
 
 const sha256 = (string_data) => {
-    console.log(sha(string_data));
-    const bytes = bs58.decode(sha(string_data));
+    const bytes = sha(string_data, {asBytes:true});
     return bytes;
 };
 
@@ -76,8 +73,6 @@ contract("Token Test", async accounts => {
     it("Create Enigma", async () => {
 
         let instance = await Token.deployed();
-
-        console.log(sha256('risposta'));
 
         await instance.BuyToken(accounts[1], 100,{from:accounts[0]});
         const tx = await instance.createEnigma(await loadOnIPFS('indovina indovinello'),
