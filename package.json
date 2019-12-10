@@ -1,7 +1,7 @@
 {
   "name": "smart-challenge",
   "version": "1.0.0",
-  "description": "SmartChallenge Smart Contract",
+  "description": "SmartChallenge DAPP",
   "main": "truffle-config.js",
   "directories": {
     "test": "test"

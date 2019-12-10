@@ -5,6 +5,7 @@ import "../node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract Token is ERC20 {
 
+    string public name = "Nigma";
     uint private MAX_TOKEN = 1000000000; //1 000 000 000
     uint32 private TEN_DAY_MS = 8640000;
     address public owner;
@@ -18,7 +19,6 @@ contract Token is ERC20 {
         uint jackpot;
         uint index;
         bool ended;
-
     }
     struct Answer{
         bytes32 hash_answer;

@@ -6,8 +6,6 @@
 
 ## Business model
 
-
-
 <hr />
 
 ## Business plan
@@ -228,7 +226,20 @@ Gli acquisti in-app effettuabili con il token sono:
 
 ### Smart Contract
 
-Il backend dell'applicazione è interamente scritto con uno Smart Contract in Solidity e deployato sulla rete Ethereum. Lo Smart Contract è stato sviluppato avendo come obiettivo l'ottimizzazione dell'uso del gas, ciò è stato possibile utilizzando la rete IPFS e diversi metodi di hashing tali da permettere di salvare le informazioni in byte32 invece che string.  
+Il backend dell'applicazione è interamente scritto con uno Smart Contract in Solidity e deployato sulla rete Ethereum. Lo Smart Contract è stato sviluppato avendo come obiettivo l'ottimizzazione dell'uso del gas, ciò è stato possibile utilizzando la rete IPFS e diversi metodi di hashing tali da permettere di salvare le informazioni in byte32 invece che string.
+
+### Test
+
+* Requisiti
+    * Nodejs
+
+Per eseguire i test è necessario eseguire i seguenti comandi da terminale:
+
+> npm install
+
+> npx ganache-cli
+
+> npm test
 
 ### Mockup UI
 
