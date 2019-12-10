@@ -1,28 +1,30 @@
 {
-  "name": "cryptoconundrum-smart-conctract",
+  "name": "smart-challenge",
   "version": "1.0.0",
-  "description": "CryptoConundrum Smart Contract",
+  "description": "SmartChallenge Smart Contract",
   "main": "truffle-config.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx truffle test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/christianvari/CryptoConundrum.git"
+    "url": "git+https://github.com/christianvari/SmartChallenge.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/christianvari/CryptoConundrum/issues"
+    "url": "https://github.com/christianvari/SmartChallenge/issues"
   },
-  "homepage": "https://github.com/christianvari/CryptoConundrum#readme",
+  "homepage": "https://github.com/christianvari/SmartChallenge#readme",
   "dependencies": {
     "@openzeppelin/contracts": "^2.4.0",
     "bs58": "^4.0.1",
+    "ganache-cli": "^6.7.0",
     "ipfs-http-client": "^40.0.1",
-    "sha256": "^0.2.0"
+    "sha256": "^0.2.0",
+    "truffle": "^5.1.3"
   }
 }

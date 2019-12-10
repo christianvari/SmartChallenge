@@ -1,9 +1,12 @@
 # Smart Contract
 
-You need npm, truffle, ganache-cli and the dependencies written in package.json
+* Requisiti
+    * Nodejs
 
-to test run:
+Per eseguire i test è necessario eseguire i seguenti comandi da terminale:
 
-> ganache-cli
+> npm install
 
-> truffle test
+> npx ganache-cli
+
+> npx truffle test
