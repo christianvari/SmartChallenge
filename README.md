@@ -14,6 +14,39 @@
 
 ## Abstract
 
+Da sempre l’uomo è stato appassionato alla risoluzione di indovinelli, enigmi e
+problemi complessi. A partire dalla Grecia arcaica dove gli enigmi e gli indovinelli
+trovano la loro collocazione ideale nell’istituto del simposio, per poi passare a
+Leonardo Da Vinci, pioniere dell’enigmistica, e arrivare ad oggi al celebre cubo di
+Rubik. Ma come sappiamo, l’uomo ha bisogno sempre di nuovi stimoli.
+Per questo nasce Smart Challenge, una piattaforma che tiene vivo l’interesse per il
+mondo degli indovinelli incentivando da un lato inventori, creatori, scrittori,
+enigmisti alla realizzazione di indovinelli complessi ma stimolanti e dall’altro
+incentivando i giocatori alla risoluzione degli stessi grazie ad un’esperienza di gioco
+unica, stimolante e divertente.
+Smart challenge sfrutta la tecnologia blockchain basata sull’utilizzo di smart
+contract, grazie alla quale è possibile garantire l’incorruttibilità delle challenge,
+sfruttando la caratteristica della blockchain di non poter modificare il blocco
+generato dallo smart contract, assicurando agli utenti delle garanzie di protezione
+da eventuali frodi.
+Gli utenti possono acquistare dei token, attraverso un comune sistema di
+pagamento, utilizzabili all’interno dell’applicazione.
+Gli utenti registrati sono stimolati dall’utilizzo dell’applicazione in quanto possono
+ricoprire un duplice ruolo: il creatore può generare delle challenge in cui propone
+indovinelli iniziando a contribuire al montepremi iniziale, mentre i partecipanti alla
+challenge cercano di risolverli pagando i tentativi di risoluzione e in caso di risposta
+errata la quota confluisce nel montepremi.
+La challenge può terminare in 2 casi:
+1) È stata fornita una risposta corretta da un partecipante che riceverà il montepremi.
+2) Il tempo di risoluzione o i tentativi disponibili sono terminati; in questo caso il
+processo rimane in stato sospeso, fino a quando il creatore non inserisce la
+risposta in chiaro che verrà equiparata a quella inserita in maniera criptata al
+momento della creazione dell’indovinello.
+
+Al fine di garantire un’ulteriore trasparenza, all’utente è fornita la possibilità di
+segnalare la challenge terminata, qualora non ritenga idonea la soluzione proposta
+dal creatore.
+
 <hr />
 
 ## Business Model
@@ -79,7 +112,7 @@
     </td>
     <td></td>
     <td>
-      <li>Cryptobet.com</li>
+      <li>smartchallenge.com</li>
       <li>Web App</li>
       <li>Applicazione Mobile</li>
     </td>
@@ -156,7 +189,7 @@
   <tr>
     <th>Descrizione dei nostri servizi</th>
     <td colspan=3>Gioco a premi basato sulla creazione e risoluzione di enigmi generati dalla community. Smart-Challenge è una DAPP su rete Ethereum; per poter utilizzare l'applicazione sarà necessario installare MetaMask sul Browser. L'applicazione avrà un token fungibile ERC-20 che sarà utilizzato dagli utenti per i pagamenti e le funzioni in-App.
-    I token (denominati "nygma"), acquistabili con carta di credito in valuta fiat tramite la piattaforma, saranno spendibili per: creazione enigmi (da parte di ideatori), visualizzazione enigmi, visualizzazione suggerimenti/indizi, tentativi di risoluzione.
+    I token (denominati "Nigma"), acquistabili con carta di credito in valuta fiat tramite la piattaforma, saranno spendibili per: creazione enigmi (da parte di ideatori), visualizzazione enigmi, visualizzazione suggerimenti/indizi, tentativi di risoluzione.
     </td>
   </tr>
 
