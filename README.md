@@ -90,7 +90,7 @@
 
   <tr>
     <th>Diventiamo imprenditori perché...</th>
-    <td colspan=3>Sulla base delle capacità e potenzialità di un team dagli studi e competenze variegate, siamo determinati nel voler sviluppare una Web App che sappia conciliare alcuni nuovi strumenti dell'Industry 4.0 (Blockchain e Smart Contract) nelle logiche di un gioco a premi, basato su competizioni tra l'utente e l'intera community online.</td>
+    <td colspan=3>Sulla base delle capacità e potenzialità di un team dagli studi e competenze variegate, siamo determinati nel voler sviluppare una Web App che sappia conciliare Blockchain e Smart Contract nelle logiche di un gioco.</td>
   </tr>
 
   <tr>
@@ -253,3 +253,9 @@ Per eseguire i test è necessario eseguire i seguenti comandi da terminale:
 ![Solve Conundrum](/readme_imgs/solve_conundrum.png)
 * Error Page
 ![Error Page](/readme_imgs/error_page.png)
+
+<hr />
+
+## Roadmap
+
+![Roadmap](/readme_imgs/roadmap.png)
