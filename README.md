@@ -10,12 +10,103 @@
   - [Test](#test)
   - [Mockup UI](#mockup-ui)
 - [Roadmap](#roadmap)
+- [Team](#team)
 
 ## Abstract
 
 <hr />
 
 ## Business Model
+
+<table>
+  <tr>
+    <th>Key Partners</th>
+    <th>Key Activities</th>
+    <th>Value Proposition</th>
+    <th>Customer Relationship</th>
+    <th>Customer Segments</th>
+  </tr>
+
+  <tr>
+    <td>
+      <li>Ideatori Enigmi</li>
+      <li>Server Esterno</li>
+      <li>Blockchain Ethereum</li>
+      <li>Servizi Accessori (esempio web3)</li>
+    </td>
+    <td>
+      <li>Sviluppo e manutenzione della Web App</li>
+      <li>Advertising</li>
+      <li>Incentivi alla creazione e risoluzione di enigmi</li>
+    </td>
+    <td>
+      <li>La prima piattaforma di creatori di enigmi originali la cui inalterabilità è garantita della tecnologia blockchain e Smart contract la cui architettura assicura decentralizzazione, sicurezza, regolamentazione e sistemi di rewards.</li>
+      <li>Sistema autosostenuto che garantisce un montepremi generato dalle quote vesate per la partecipazione da ideatori e potenziali risolutori degli enigmi.</li>
+      <li>Interfaccia user-friendly</li>
+    </td>
+    <td>
+      <li>Automated online relationship</li>
+      <li>Ottimizzazione del servizio tramite feedback/reclami su pagine social.</li>
+      <li>Premi fedeltà (Token in regalo in base alla frequenza di utilizzo)</li>
+    </td>
+
+  <td>
+    <li>Casual Gamers</li>
+    <li>Studenti univeristari</li>
+    <li>Scommettitori</li>
+  </td>
+
+  </tr>
+
+  <tr>
+    <td></td>
+    <th>Key Resources</th>
+    <td></td>
+    <th>Channels</th>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td>
+      <li>Piattaforma Proprietaria</li>
+      <li>Ingegneri, Sviluppatori</li>
+      <li>Avvocati</li>
+      <li>Criminologi</li>
+      <li>Consulenti aziendali</li>
+      <li>Collaborazioni accademiche</li>
+      <li>Ricercatori C.N.R</li>
+    </td>
+    <td></td>
+    <td>
+      <li>Cryptobet.com</li>
+      <li>Web App</li>
+      <li>Applicazione Mobile</li>
+    </td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <th colspan=2>Cost Structure</th>
+    <td></td>
+    <th colspan=2>Revenue Streams</th>
+  </tr>
+
+  <tr>
+    <td colspan=2>
+      <li>Registrazione e applicazione Smart Contract</li>
+      <li>Acquisto dominio e gestione sito</li>
+      <li>Marketing (Sponsorizzazioni, Banner)</li>
+    </td>
+    <td></td>
+    <td colspan=2>Acquisti in App di Token (1€ = 100 token), riscattabili esclusivamente al momento della vincita del montepremi.
+    <li>10% sul costo di acquisto di ciscun token/pacchetto Token.</li>
+    <li>10% sull’importo richiesto per la partecipazione e ciascun tentativo di risoluzione dell’enigma</li>
+    <li>15% del montepremi al momento del riscatto della vincita</li>
+    </td>
+  </tr>
+
+</table>
 
 <hr />
 
@@ -28,7 +119,8 @@
 
   <tr>
     <th>Idea Imprenditoriale</th>
-    <td colspan=3>Web App volta alla creazione di esperienze video-ludiche, finalizzata all’intrattenimento ed alla stimolazione psico-cognitiva dell’utilizzatore, nell'ambito di competizioni, impostate su Blockchain, tra l'utente stesso e l'intera community online.</td>
+    <td colspan=3>Web App volta alla creazione di esperienze video-ludiche, finalizzata all’intrattenimento ed alla stimolazione psico-cognitiva dell’utilizzatore, nell'ambito di competizioni, impostate su Blockchain, tra l'utente stesso e l'intera community online.
+    </td>
   </tr>
 
   <tr>
@@ -38,7 +130,8 @@
 
   <tr>
     <th>Forma giuridica</th>
-    <td colspan=3>Società a responsabilità limitata (SRL)</td>
+    <td colspan=3>Società a responsabilità limitata (SRL)
+    </td>
   </tr>
 
   <tr>
@@ -63,17 +156,20 @@
   <tr>
     <th>Descrizione dei nostri servizi</th>
     <td colspan=3>Gioco a premi basato sulla creazione e risoluzione di enigmi generati dalla community. Smart-Challenge è una DAPP su rete Ethereum; per poter utilizzare l'applicazione sarà necessario installare MetaMask sul Browser. L'applicazione avrà un token fungibile ERC-20 che sarà utilizzato dagli utenti per i pagamenti e le funzioni in-App.
-    I token (denominati "nygma"), acquistabili con carta di credito in valuta fiat tramite la piattaforma, saranno spendibili per: creazione enigmi (da parte di ideatori), visualizzazione enigmi, visualizzazione suggerimenti/indizi, tentativi di risoluzione.</td>
+    I token (denominati "nygma"), acquistabili con carta di credito in valuta fiat tramite la piattaforma, saranno spendibili per: creazione enigmi (da parte di ideatori), visualizzazione enigmi, visualizzazione suggerimenti/indizi, tentativi di risoluzione.
+    </td>
   </tr>
 
   <tr>
     <th>Qual è l'elemento innovativo della nostra idea imprenditoriale?</th>
-    <td colspan=3>L'aspetto innovativo è ravvisabile nella tecnologia Blockchain e Smart Contract, i quali garantiscono la decentralizzazione e pseudo-anonimato, nonché sicurezza dei pagamenti e dei dati forniti dagli utenti.</td>
+    <td colspan=3>L'aspetto innovativo è ravvisabile nella tecnologia Blockchain e Smart Contract, i quali garantiscono la decentralizzazione e pseudo-anonimato, nonché sicurezza dei pagamenti e dei dati forniti dagli utenti.
+    </td>
   </tr>
 
   <tr>
     <th>Il cliente si serve da noi perché</th>
-    <td colspan=3>Gli utenti possono giocare su una piattaforma sicura, non aggirabile o hackerabile, la quale, servendosi di Smart Contracts, automatizza le meccaniche di gioco e rende completamente sicuro il sistema di pagamenti.</td>
+    <td colspan=3>Gli utenti possono giocare su una piattaforma sicura, non aggirabile o hackerabile, la quale, servendosi di Smart Contracts, automatizza le meccaniche di gioco e rende completamente sicuro il sistema di pagamenti.
+    </td>
   </tr>
 
   <tr>
@@ -92,7 +188,8 @@
 
   <tr>
     <th>Suddivisione delle mansioni/funzioni</th>
-    <td>Programmatori e ingegneri per lo sviluppo dell'architettura informatica della piattaforma.</td>
+    <td>Programmatori e ingegneri per lo sviluppo dell'architettura informatica della piattaforma.
+    </td>
     <td>Advisor aziendali per consulenza sulla fattibilità, ripartizione e valutazione di costi e ricavi, prospettive future, nonché criteri di efficienza, efficacia e sostenibilità del progetto; pianificazione marketing strategico e operativo.
     </td>
     <td>Avvocati per definizione e inquadramento normativo dell'attività svolta.
@@ -101,7 +198,8 @@
 
   <tr>
     <th>Diventiamo imprenditori perché...</th>
-    <td colspan=3>Sulla base delle capacità e potenzialità di un team dagli studi e competenze variegate, siamo determinati nel voler sviluppare una Web App che sappia conciliare Blockchain e Smart Contract nelle logiche di un gioco.</td>
+    <td colspan=3>Sulla base delle capacità e potenzialità di un team dagli studi e competenze variegate, siamo determinati nel voler sviluppare una Web App che sappia conciliare Blockchain e Smart Contract nelle logiche di un gioco.
+    </td>
   </tr>
 
   <tr>
@@ -134,17 +232,20 @@
 
   <tr>
     <th>Clienti / Target</th>
-    <td colspan=3>Smartphone users (casual gamers, universitari, scommettitori)</td>
+    <td colspan=3>Smartphone users (casual gamers, universitari, scommettitori)
+    </td>
   </tr>
 
   <tr>
     <th>Fabbisogno dei clienti</th>
-    <td colspan=3>Poter ottenere introiti diversi dal reddito, derivanti da attività video-ludica, contraddistinta dalla possibilità di vincita connessa alla creazione e risoluzione di enigmi.</td>
+    <td colspan=3>Poter ottenere introiti diversi dal reddito, derivanti da attività video-ludica, contraddistinta dalla possibilità di vincita connessa alla creazione e risoluzione di enigmi.
+    </td>
   </tr>
 
   <tr>
     <th>Concorrenti</th>
-    <td colspan=3>Il Signore degli Enigmi, Indovinelli, Sfide di logica, Elevate - Brain Training Games, Lumosity, The Power of Blockchain, Battle Trivia, meVu.bet</td>
+    <td colspan=3>Il Signore degli Enigmi, Indovinelli, Sfide di logica, Elevate - Brain Training Games, Lumosity, The Power of Blockchain, Battle Trivia, meVu.bet
+    </td>
   </tr>
 
   <tr>
@@ -153,7 +254,8 @@
 
   <tr>
     <th>Prodotti / servizi</th>
-    <td colspan=3>Web App accessibile gratuitamente</td>
+    <td colspan=3>Web App accessibile gratuitamente
+    </td>
   </tr>
 
   <tr>
@@ -187,7 +289,8 @@
 
   <tr>
     <th>Rischio del prodotto</th>
-    <td colspan=3>In caso di mancato successo del prodotto realizzato sarà possibile assicurare l'attività di debugging sia grazie al flusso di feedback derivanti dalle pagine social, sia tramite l'efficace lettura dei dati permanenti nella blockchain, entrambe garantite dal nostro team di formazione eterogenea composto da un pull di avvocati, ingegneri informatici ed economisti.</td>
+    <td colspan=3>In caso di mancato successo del prodotto realizzato sarà possibile assicurare l'attività di debugging sia grazie al flusso di feedback derivanti dalle pagine social, sia tramite l'efficace lettura dei dati permanenti nella blockchain, entrambe garantite dal nostro team di formazione eterogenea composto da un pull di avvocati, ingegneri informatici ed economisti.
+    </td>
   </tr>
 
   <tr>
@@ -246,11 +349,13 @@ Il backend dell'applicazione è interamente scritto con uno Smart Contract in So
 
 Per eseguire i test è necessario eseguire i seguenti comandi da terminale:
 
-> npm install
+```bash
+$ npm install
 
-> npx ganache-cli
+$ npx ganache-cli
 
-> npm test
+$ npm test
+```
 
 ### Mockup UI
 
@@ -270,3 +375,20 @@ Per eseguire i test è necessario eseguire i seguenti comandi da terminale:
 ## Roadmap
 
 ![Roadmap](/readme_imgs/roadmap.png)
+
+## Team
+
+* **Alabiso Angelo**
+* **Antolini Gianluca**
+* **Bertolini Gianluca**
+* **Freda Angelo**
+* **Maggiore Alessandro**
+* **Maiorani Alessandro**
+* **Mancini Biagio**
+* **Nacci Vincenzo**
+* **Papa Antonio**
+* **Papperini Lorenzo**
+* **Proietti Valerio**
+* **Senni Fabrizio**
+* **Valente Marco**
+* **Vari Christian**
