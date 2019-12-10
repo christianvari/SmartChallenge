@@ -26,7 +26,7 @@ contract Token is ERC20 {
         uint enigma_index;
         bool right;
     }
-    
+
     mapping(address => Enigma[]) private creators;
     mapping(address => Answer[]) private players;
 
