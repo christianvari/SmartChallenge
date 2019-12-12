@@ -226,7 +226,7 @@ contract SmartChallenge is ERC20 {
         require(challenge.state == State.Active, "The challenge isn't Active");
 
         require(block.timestamp - (DAY_MS*10) > challenge.timestamp || challenge.remainingBids == 0);
-        
+
         challenge.timestamp = block.timestamp;
 
         if(challenge.answerHash == answerHash){
