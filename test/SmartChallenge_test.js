@@ -145,6 +145,44 @@ contract("SmartChallenge Test", async accounts => {
             from: accounts[2]
         });
         //console.log(challenge);
-        assert(challenge["5"]);
+        assert(challenge["6"]);
+    });
+
+    it("Create another Challenge", async () => {
+        let instance = await SmartChallenge.deployed();
+
+        await instance.buyNigmas(accounts[1], 100, { from: accounts[0] });
+        const tx = await instance.createChallenge(
+            await loadOnIPFS("indovina indovinello"),
+            sha256("risposta"),
+            100,
+            20,
+            { from: accounts[1] }
+        );
+
+        let challenge = await instance.getPlayerCreatedChallenge(1, {
+            from: accounts[1]
+        });
+        assert.ok(challenge);
+    });
+
+    it("Wrong answer a question", async () => {
+        let instance = await SmartChallenge.deployed();
+
+        await instance.buyNigmas(accounts[2], 100, { from: accounts[0] });
+        const tx = await instance.answerChallenge(
+            sha256("risposta1"),
+            await loadOnIPFS("risposta1"),
+            0,
+            50,
+            { from: accounts[2] }
+        );
+
+        let challenge = await instance.getPlayerCreatedChallenge(1, {
+            from: accounts[1]
+        });
+        console.log(challenge);
+
+        assert(!challenge["6"]);
     });
 });

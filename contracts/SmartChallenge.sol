@@ -10,6 +10,8 @@ contract SmartChallenge is ERC20 {
         uint[] replaceable;
     }
     struct Challenge{
+        address creator;
+        uint creatorChallengeNumber;
         bytes32 questionHash;
         bytes32 answerHash;
         uint16 remainingBids;
@@ -53,13 +55,19 @@ contract SmartChallenge is ERC20 {
     }
 
     function finishChallenge(uint index) internal{
-        challenges.activeChallenges[index].isEnded = true;
-        challenges.endedChallenges.push(challenges.activeChallenges[index]);
+
+        Challenge storage challenge = challenges.activeChallenges[index];
+        challenge.isEnded = true;                
+        uint length = challenges.endedChallenges.push(challenge);
+
+        players.registeredPlayers[challenge.creator].createdChallenges[challenge.creatorChallengeNumber] = length - 1;
+        players.registeredPlayers[challenge.creator].activeChallenges[challenge.creatorChallengeNumber] = false;
         challenges.replaceable.push(index);
     }
 
-    function getChallengeTuple(Challenge storage c) internal view returns (bytes32, bytes32, uint16, uint, uint, bool){
-        return(c.questionHash,
+    function getChallengeTuple(Challenge storage c) internal view returns (address, bytes32, bytes32, uint16, uint, uint, bool){
+        return(c.creator,
+            c.questionHash,
             c.answerHash,
             c.remainingBids,
             c.timestamp,
@@ -87,7 +95,7 @@ contract SmartChallenge is ERC20 {
         return players.registeredPlayers[msg.sender].username;
     }
 
-    function  getChallenge(bool active, uint index) public view registered returns (bytes32, bytes32, uint16, uint, uint, bool){
+    function  getChallenge(bool active, uint index) public view registered returns (address , bytes32, bytes32, uint16, uint, uint, bool){
         assert(challenges.activeChallenges.length >= index);
 
         if (active)
@@ -96,7 +104,7 @@ contract SmartChallenge is ERC20 {
             return getChallengeTuple(challenges.endedChallenges[index]);
     }
 
-    function getPlayerCreatedChallenge(uint index) public registered view returns (bytes32, bytes32, uint16, uint, uint, bool){
+    function getPlayerCreatedChallenge(uint index) public registered view returns (address, bytes32, bytes32, uint16, uint, uint, bool){
         require(players.registeredPlayers[msg.sender].createdChallenges.length > index, "Index out of bound");
 
         uint internalIndex = players.registeredPlayers[msg.sender].createdChallenges[index];
@@ -143,7 +151,12 @@ contract SmartChallenge is ERC20 {
     function createChallenge(bytes32 questionHash, bytes32 answerHash, uint16 maximumBids, uint256 bid) public registered{
         require(balanceOf(msg.sender) >= bid, "You haven't enough token to place your bid.");
         _transfer(msg.sender, address(this), bid);
+        
+        Player storage player = players.registeredPlayers[msg.sender];
+
         Challenge memory challenge = Challenge({
+            creator: msg.sender,
+            creatorChallengeNumber: player.createdChallenges.length,
             questionHash: questionHash,
             answerHash: answerHash,
             remainingBids: maximumBids,
@@ -152,12 +165,10 @@ contract SmartChallenge is ERC20 {
             isEnded: false
         });
 
-        Player storage player = players.registeredPlayers[msg.sender];
-
         uint index;
 
         if(challenges.replaceable.length > 0){
-            index = challenges.replaceable[challenges.replaceable.length--];
+            index = challenges.replaceable[challenges.replaceable.length-1];
             challenges.activeChallenges[index] = challenge;
             challenges.replaceable.pop();
         }
@@ -175,7 +186,7 @@ contract SmartChallenge is ERC20 {
 
         Challenge storage challenge = challenges.activeChallenges[index];
 
-        assert(! challenge.isEnded);
+        require(! challenge.isEnded, "The challenge is ended");
         Answer memory answer = Answer({
             hash: answerHashIPFS,
             bid: bid,
