@@ -181,8 +181,26 @@ contract("SmartChallenge Test", async accounts => {
         let challenge = await instance.getPlayerCreatedChallenge(1, {
             from: accounts[1]
         });
-        console.log(challenge);
+        //console.log(challenge);
 
         assert(!challenge["6"]);
+    });
+
+    it("Get player answers", async () => {
+        let instance = await SmartChallenge.deployed();
+
+        const numAnswers = await instance.getPlayerCreatedAnswersNumber({
+            from: accounts[2]
+        });
+
+        console.log(numAnswers);
+
+        for (let i = 0; i < numAnswers; i++) {
+            let answer = await instance.getPlayerCreatedAnswer(i, {
+                from: accounts[2]
+            });
+            console.log(answer);
+            assert.ok(answer);
+        }
     });
 });
