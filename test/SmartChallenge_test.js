@@ -1,6 +1,6 @@
 const SmartChallenge = artifacts.require("SmartChallenge");
 
-// I use sha256 encoded in hex and withount the fixed part 0x1220
+// I use sha256 encoded in hex without the fixed part 0x1220
 const bs58 = require("bs58");
 const sha = require("sha256");
 const IPFS = require("ipfs-http-client");
@@ -60,7 +60,7 @@ contract("Nigma Test", async accounts => {
 
     it("should be possible to buy nigmas", async () => {
         let instance = await SmartChallenge.deployed();
-        let txResult = await instance.buyNigmas(accounts[1], 10, {
+        let tx = await instance.buyNigmas(accounts[1], 10, {
             from: accounts[0]
         });
         let balance = await instance.balanceOf(accounts[1]);
@@ -145,7 +145,7 @@ contract("SmartChallenge Test", async accounts => {
             from: accounts[2]
         });
         //console.log(challenge);
-        assert(challenge["6"]);
+        assert.equal(2, challenge["6"]);
     });
 
     it("Create another Challenge", async () => {
@@ -169,7 +169,7 @@ contract("SmartChallenge Test", async accounts => {
     it("Wrong answer a question", async () => {
         let instance = await SmartChallenge.deployed();
 
-        await instance.buyNigmas(accounts[2], 100, { from: accounts[0] });
+        await instance.buyNigmas(accounts[2], 10000, { from: accounts[0] });
         const tx = await instance.answerChallenge(
             sha256("risposta1"),
             await loadOnIPFS("risposta1"),
@@ -183,7 +183,7 @@ contract("SmartChallenge Test", async accounts => {
         });
         //console.log(challenge);
 
-        assert(!challenge["6"]);
+        assert.equal(0, challenge["6"]);
     });
 
     it("Get player answers", async () => {
@@ -193,14 +193,82 @@ contract("SmartChallenge Test", async accounts => {
             from: accounts[2]
         });
 
-        console.log(numAnswers);
-
         for (let i = 0; i < numAnswers; i++) {
             let answer = await instance.getPlayerCreatedAnswer(i, {
                 from: accounts[2]
             });
-            console.log(answer);
+            //console.log(answer);
             assert.ok(answer);
+        }
+    });
+
+    it("Finish bids", async () => {
+        let instance = await SmartChallenge.deployed();
+
+        const tx = await instance.createChallenge(
+            await loadOnIPFS("indovina indovinello"),
+            sha256("risposta"),
+            10,
+            100,
+            { from: accounts[1] }
+        );
+
+        for (let i = 0; i < 10; i++) {
+            await instance.answerChallenge(
+                sha256("risposta1"),
+                await loadOnIPFS("risposta1"),
+                1,
+                50,
+                { from: accounts[2] }
+            );
+        }
+
+        try {
+            await instance.answerChallenge(
+                sha256("risposta1"),
+                await loadOnIPFS("risposta1"),
+                1,
+                50,
+                { from: accounts[2] }
+            );
+            assert(false);
+        } catch (err) {
+            assert(true);
+        }
+    });
+
+    it("Creator confirms challenge", async () => {
+        let instance = await SmartChallenge.deployed();
+
+        await instance.confirmChallenge(
+            2,
+            sha256("risposta"),
+            await loadOnIPFS("risposta"),
+            { from: accounts[1] }
+        );
+
+        let challenge = await instance.getPlayerCreatedChallenge(2, {
+            from: accounts[1]
+        });
+
+        //console.log(challenge);
+
+        assert.equal(challenge["6"], 1);
+    });
+
+    it("Creator can't confirm challenge if it isn't ended", async () => {
+        let instance = await SmartChallenge.deployed();
+
+        try {
+            await instance.confirmChallenge(
+                1,
+                sha256("risposta"),
+                await loadOnIPFS("risposta"),
+                { from: accounts[1] }
+            );
+            assert(false);
+        } catch (err) {
+            assert(true);
         }
     });
 });

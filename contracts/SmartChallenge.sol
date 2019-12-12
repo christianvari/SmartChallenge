@@ -4,6 +4,16 @@ import "../node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract SmartChallenge is ERC20 {
 
+    string public name = "Nigma";
+    uint private constant MAX_TOKEN = 1000000000; //1 000 000 000
+    uint32 private constant DAY_MS = 86400000;
+    uint8 private constant NEW_CHALLENGE_FEE = 1;
+    address public owner;
+    Challenges challenges;
+    Players players;
+
+    enum State {Active, Confirming, Finished, Invalid }
+
     struct Challenges{
         Challenge[] endedChallenges;
         Challenge[] activeChallenges;
@@ -17,7 +27,7 @@ contract SmartChallenge is ERC20 {
         uint16 remainingBids;
         uint timestamp;
         uint jackpot;
-        bool isEnded;
+        State state;
     }
     struct Answer{
         bytes32 hash;
@@ -37,13 +47,6 @@ contract SmartChallenge is ERC20 {
         mapping(uint => Answer) createdAnswers;
         uint createdAnswersNumber;
     }
-    string public name = "Nigma";
-    uint private MAX_TOKEN = 1000000000; //1 000 000 000
-    uint32 private TEN_DAY_MS = 8640000;
-    uint8 private NEW_CHALLENGE_FEE = 1;
-    address public owner;
-    Challenges challenges;
-    Players players;
 
     modifier registered(){
         require(isPlayerRegistered(), "Player is not registered");
@@ -58,7 +61,6 @@ contract SmartChallenge is ERC20 {
     function finishChallenge(uint index) internal{
 
         Challenge storage challenge = challenges.activeChallenges[index];
-        challenge.isEnded = true;
         uint length = challenges.endedChallenges.push(challenge);
 
         players.registeredPlayers[challenge.creator].createdChallenges[challenge.creatorChallengeNumber] = length - 1;
@@ -66,14 +68,14 @@ contract SmartChallenge is ERC20 {
         challenges.replaceable.push(index);
     }
 
-    function getChallengeTuple(Challenge storage c) internal view returns (address, bytes32, bytes32, uint16, uint, uint, bool){
+    function getChallengeTuple(Challenge storage c) internal view returns (address, bytes32, bytes32, uint16, uint, uint, State){
         return(c.creator,
             c.questionHash,
             c.answerHash,
             c.remainingBids,
             c.timestamp,
             c.jackpot,
-            c.isEnded);
+            c.state);
     }
 
     // TODO: Use allowance after Paypal event
@@ -96,7 +98,7 @@ contract SmartChallenge is ERC20 {
         return players.registeredPlayers[msg.sender].username;
     }
 
-    function  getChallenge(bool active, uint index) public view registered returns (address , bytes32, bytes32, uint16, uint, uint, bool){
+    function  getChallenge(bool active, uint index) public view registered returns (address , bytes32, bytes32, uint16, uint, uint, State){
         assert(challenges.activeChallenges.length >= index);
 
         if (active)
@@ -105,7 +107,7 @@ contract SmartChallenge is ERC20 {
             return getChallengeTuple(challenges.endedChallenges[index]);
     }
 
-    function getPlayerCreatedChallenge(uint index) public registered view returns (address, bytes32, bytes32, uint16, uint, uint, bool){
+    function getPlayerCreatedChallenge(uint index) public registered view returns (address, bytes32, bytes32, uint16, uint, uint, State){
         require(players.registeredPlayers[msg.sender].createdChallenges.length > index, "Index out of bound");
 
         uint internalIndex = players.registeredPlayers[msg.sender].createdChallenges[index];
@@ -159,7 +161,7 @@ contract SmartChallenge is ERC20 {
             remainingBids: maximumBids,
             timestamp: block.timestamp,
             jackpot: bid,
-            isEnded: false
+            state: State.Active
         });
 
         uint index;
@@ -183,7 +185,7 @@ contract SmartChallenge is ERC20 {
 
         Challenge storage challenge = challenges.activeChallenges[index];
 
-        require(! challenge.isEnded, "The challenge is ended");
+        require(challenge.state == State.Active, "The challenge isn't active");
         require(challenge.remainingBids > 0, "The challenge is ended");
 
         Answer memory answer = Answer({
@@ -197,6 +199,7 @@ contract SmartChallenge is ERC20 {
         challenge.remainingBids -= 1;
         if(answerHash == challenge.answerHash){
             challenge.answerHash = answerHashIPFS;
+            challenge.state = State.Finished;
             finishChallenge(index);
             answer.isCorrect = true;
             _transfer(address(this), msg.sender, challenge.jackpot);
@@ -211,18 +214,45 @@ contract SmartChallenge is ERC20 {
         player.createdAnswersNumber++;
     }
 
-    function getReward(uint index, bytes32 answerHash, bytes32 answerHashIPFS) public{
+    function confirmChallenge(uint index, bytes32 answerHash, bytes32 answerHashIPFS) public{
 
         Player storage player = players.registeredPlayers[msg.sender];
         assert(player.createdChallenges.length > index);
-        require(player.activeChallenges[index], "The Challenge isn't ended yet");
+        require(player.activeChallenges[index], "Challenge isn't active");
+
+        uint internalIndex = player.createdChallenges[index];
+        Challenge storage challenge = challenges.activeChallenges[internalIndex];
+
+        require(challenge.state == State.Active, "The challenge isn't Active");
+
+        require(block.timestamp - (DAY_MS*10) > challenge.timestamp || challenge.remainingBids == 0);
+        
+        challenge.timestamp = block.timestamp;
+
+        if(challenge.answerHash == answerHash){
+            challenge.state = State.Confirming;
+            challenge.answerHash = answerHashIPFS;
+            _transfer(address(this), msg.sender, challenge.jackpot);
+        }
+        else{
+            challenge.state = State.Invalid;
+        }
+        finishChallenge(internalIndex);
+    }
+
+    function redeemJackpot(uint index) public {
+        Player storage player = players.registeredPlayers[msg.sender];
+        assert(player.createdChallenges.length > index);
+        require(!player.activeChallenges[index], "Challenge is active");
 
         uint internalIndex = player.createdChallenges[index];
         Challenge storage challenge = challenges.endedChallenges[internalIndex];
 
+        require(challenge.state == State.Confirming, "The challenge isn't in Confirming state");
 
-        if(challenge.answerHash == answerHash){
-            challenge.answerHash = answerHashIPFS;
+        if(block.timestamp - (DAY_MS) > challenge.timestamp ){
+
+            challenge.state = State.Finished;
             _transfer(address(this), msg.sender, challenge.jackpot);
         }
     }
