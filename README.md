@@ -415,6 +415,7 @@ $ npm test
 * **Antolini Gianluca**
 * **Bertolini Gianluca**
 * **Freda Angelo**
+* **Lombardi Gianluca**
 * **Maggiore Alessandro**
 * **Maiorani Alessandro**
 * **Mancini Biagio**
